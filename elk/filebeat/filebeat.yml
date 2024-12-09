@@ -1,0 +1,10 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    # 실제 로그 파일 경로를 지정해야 합니다.
+    # 아래 예에서는 /usr/share/filebeat/logs/ 디렉토리 내의 *.log 파일을 수집한다고 가정.
+    paths:
+      - /usr/share/filebeat/logs/*.log
+
+output.logstash:
+  hosts: ["logstash:5044"]

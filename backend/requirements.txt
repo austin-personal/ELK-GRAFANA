@@ -1,0 +1,5 @@
+flask
+boto3
+elastic-apm
+psutil
+flask-cors

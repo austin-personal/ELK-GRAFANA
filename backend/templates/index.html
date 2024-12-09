@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuyME</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #007BFF;
+      color: white;
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+    }
+
+    /* Form Container */
+    .container {
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>BuyME</h1>
+  </div>
+
+  <div class="container">
+    <h2>Simple Purchase Page</h2>
+    <form id="buyForm">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="gender">Gender:</label>
+      <select name="gender" id="gender" required>
+        <option value="M">M</option>
+        <option value="F">F</option>
+      </select>
+
+      <label for="item">Item:</label>
+      <select name="item" id="item" required>
+        <option value="가위">가위</option>
+        <option value="바나나">바나나</option>
+        <option value="다리미">다리미</option>
+        <option value="ERROR">ERROR</option>
+      </select>
+
+      <label for="price">Price:</label>
+      <input type="number" name="price" id="price" required>
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" required>
+
+      <button type="submit">Buy</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('buyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById('name').value,
+        gender: document.getElementById('gender').value,
+        item: document.getElementById('item').value,
+        price: Number(document.getElementById('price').value),
+        quantity: Number(document.getElementById('quantity').value)
+      };
+      
+      fetch('http://localhost:4999/buy', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(response => {
+        console.log("Response:", response);
+        alert("Purchase recorded!");
+
+        // 입력 필드 초기화
+        document.getElementById('buyForm').reset();
+      })
+      .catch(err => console.error("Error:", err));
+    });
+  </script>
+</body>
+</html>
