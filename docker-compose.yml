@@ -85,8 +85,6 @@ services:
       - ./backend/templates:/usr/share/nginx/html:ro
       # Nginx 설정 파일
       - ./nginx/conf.d/defualt.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./logs/nginx:/var/log/nginx
     ports:
       - "80:80"
-    # 로그 수집을 위해 Nginx 로그 마운트 (필요하다면):
-    # volumes:
-    #   - ./logs/nginx:/var/log/nginx

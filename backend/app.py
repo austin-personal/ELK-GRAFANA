@@ -28,7 +28,7 @@ app.logger.setLevel(logging.INFO)
 # 기존의 기본 핸들러 제거 (중복 로그 방지)
 if app.logger.hasHandlers():
     app.logger.handlers.clear()
-    app.logger.addHandler(file_handler)
+app.logger.addHandler(file_handler)
 
 
 # APM 설정 (환경변수를 사용하거나 하드코딩 가능)
