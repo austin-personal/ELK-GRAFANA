@@ -56,12 +56,10 @@ services:
       - logstash
     volumes:
       - ./elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      # 로그 디렉토리 마운트: 실제 로그 파일이 존재하는 디렉토리 필요 시 추가
-      # 예: - ./logs/:/usr/share/filebeat/logs/:ro
+      - ./logs/backend:/usr/share/filebeat/logs/backend:ro
+      - ./logs/nginx:/usr/share/filebeat/logs/nginx:ro
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=changeme
 
   backend:
     build: ./backend
